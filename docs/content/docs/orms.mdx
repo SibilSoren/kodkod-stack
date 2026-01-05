@@ -1,11 +1,14 @@
 ---
 title: ORMs
-description: Learn about Prisma and Drizzle ORM support in antstack-js.
+description: Learn about Prisma, Drizzle, and Mongoose support in antstack-js.
 ---
 
 # ORMs
 
-antstack-js supports two modern ORMs: **Prisma** and **Drizzle**. Both are TypeScript-first and provide excellent developer experiences.
+antstack-js supports three modern ORMs: **Prisma**, **Drizzle**, and **Mongoose**. The available options depend on your database choice:
+
+- **PostgreSQL/MySQL**: Prisma or Drizzle
+- **MongoDB**: Mongoose or Prisma
 
 ## Prisma
 
@@ -107,12 +110,61 @@ const user = await db.select().from(users).where(eq(users.id, '1'));
 
 ---
 
+## Mongoose
+
+[Mongoose](https://mongoosejs.com/) is the most popular MongoDB ODM for Node.js, providing schema validation and a rich query API.
+
+**Best for**:
+- MongoDB-native development
+- Teams familiar with the MongoDB ecosystem
+- Projects needing schema validation and middleware
+
+```bash
+npx antstack-js@latest my-app --database mongodb --orm mongoose
+```
+
+### Schema Example
+
+```typescript
+// src/models/user.model.ts
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface IUser extends Document {
+  email: string;
+  name?: string;
+}
+
+const UserSchema = new Schema<IUser>({
+  email: { type: String, required: true, unique: true },
+  name: { type: String },
+}, { timestamps: true });
+
+export const User = mongoose.model<IUser>('User', UserSchema);
+```
+
+### Usage
+
+```typescript
+import { User } from '../models/user.model';
+
+// Create a user
+const user = await User.create({ email: 'hello@example.com', name: 'Alice' });
+
+// Find a user
+const found = await User.findById(userId);
+
+// Update a user
+await User.findByIdAndUpdate(userId, { name: 'Bob' });
+```
+
+---
+
 ## Comparison
 
-| Feature              | Prisma              | Drizzle             |
-|----------------------|---------------------|---------------------|
-| Query Style          | Method chaining     | SQL-like            |
-| Bundle Size          | Larger              | Smaller             |
-| Type Safety          | Excellent           | Excellent           |
-| Learning Curve       | Easier              | Moderate            |
-| Edge Compatibility   | Limited             | Better              |
+| Feature              | Prisma              | Drizzle             | Mongoose            |
+|----------------------|---------------------|---------------------|---------------------|
+| Query Style          | Method chaining     | SQL-like            | Document-based      |
+| Database Support     | SQL + MongoDB       | SQL only            | MongoDB only        |
+| Bundle Size          | Larger              | Smaller             | Medium              |
+| Type Safety          | Excellent           | Excellent           | Good                |
+| Learning Curve       | Easier              | Moderate            | Easier              |

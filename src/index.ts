@@ -91,12 +91,20 @@ cli
 
     let orm = options.orm;
     if (!orm) {
+      // Different ORM options based on database
+      const ormOptions = database === 'mongodb'
+        ? [
+            { value: 'mongoose', label: 'Mongoose', hint: 'MongoDB-native ODM' },
+            { value: 'prisma', label: 'Prisma', hint: 'Typesafe, auto-generated client' },
+          ]
+        : [
+            { value: 'prisma', label: 'Prisma', hint: 'Typesafe, auto-generated client' },
+            { value: 'drizzle', label: 'Drizzle', hint: 'Lightweight, SQL-like' },
+          ];
+
       orm = (await select({
         message: 'Select an ORM',
-        options: [
-          { value: 'prisma', label: 'Prisma', hint: 'Typesafe, auto-generated client' },
-          { value: 'drizzle', label: 'Drizzle', hint: 'Lightweight, SQL-like' },
-        ],
+        options: ormOptions,
       })) as string;
 
       if (isCancel(orm)) {
