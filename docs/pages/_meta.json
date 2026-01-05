@@ -1,3 +1,15 @@
 {
-  "index": "Introduction"
+  "index": {
+    "title": "Home",
+    "type": "page",
+    "display": "hidden"
+  },
+  "builder": {
+    "title": "Builder",
+    "type": "page"
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "menu"
+  }
 }
