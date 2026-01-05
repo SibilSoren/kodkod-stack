@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { jwt } from 'hono/jwt';
-import { authController } from './auth.controller.js';
+import { authController } from '../../auth/auth.controller.js';
 
 const auth = new Hono();
 

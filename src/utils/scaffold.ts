@@ -5,11 +5,27 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const getTemplatesDir = () => {
+  const paths = [
+    path.resolve(__dirname, '../templates'),    // dist/
+    path.resolve(__dirname, '../../templates'), // src/utils/
+    path.resolve(__dirname, './templates'),     // root
+  ];
+  for (const p of paths) {
+    if (fs.pathExistsSync(p)) return p;
+  }
+  return paths[0]; // default
+};
+
+const templatesDir = getTemplatesDir();
+
 export interface ScaffoldOptions {
   projectName: string;
   framework: string;
   database: string;
   orm: string;
+  runtime: string;
+  packageManager: string;
 }
 
 function getOrmTemplateDir(templatesDir: string, orm: string, database: string): string {
@@ -26,7 +42,6 @@ function getOrmTemplateDir(templatesDir: string, orm: string, database: string):
 }
 
 export async function scaffoldProject(targetDir: string, options: ScaffoldOptions) {
-  const templatesDir = path.resolve(__dirname, '../templates');
   const baseDir = path.join(templatesDir, 'base');
   const frameworkDir = path.join(templatesDir, `frameworks/${options.framework}`);
   const ormDir = getOrmTemplateDir(templatesDir, options.orm, options.database);
@@ -83,6 +98,17 @@ export async function scaffoldProject(targetDir: string, options: ScaffoldOption
     } else if (options.orm === 'mongoose') {
       pkg.dependencies = { ...pkg.dependencies, mongoose: '^8.0.3' };
       pkg.devDependencies = { ...pkg.devDependencies, '@types/mongoose': '^5.11.97' };
+    }
+    
+    // Add runtime-specific settings
+    if (options.runtime === 'bun') {
+      pkg.scripts.dev = 'bun --hot src/index.ts';
+      pkg.scripts.start = 'bun src/index.ts';
+    }
+
+    // Add package manager field if not npm
+    if (options.packageManager !== 'npm') {
+      pkg.packageManager = `${options.packageManager}@latest`;
     }
     
     await fs.writeJson(pkgPath, pkg, { spaces: 2 });

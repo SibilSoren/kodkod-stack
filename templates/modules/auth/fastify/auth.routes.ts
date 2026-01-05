@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
-import { authController } from './auth.controller.js';
+import { authController } from '../../auth/auth.controller.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 

@@ -11,17 +11,31 @@ interface ProjectConfig {
   database: string;
 }
 
-const AUTH_TEMPLATE_DIR = join(__dirname, '../../templates/modules/auth');
+const getAuthTemplateDir = () => {
+  const paths = [
+    join(__dirname, '../templates/modules/auth'),       // dist/
+    join(__dirname, '../../../templates/modules/auth'), // src/commands/modules/
+    join(__dirname, '../../templates/modules/auth'),    // fallback
+  ];
+  for (const p of paths) {
+    if (existsSync(p)) return p;
+  }
+  return paths[0]; // default
+};
+
+const AUTH_TEMPLATE_DIR = getAuthTemplateDir();
 
 export async function addAuthModule(projectDir: string, config: ProjectConfig) {
   const srcDir = join(projectDir, 'src');
   
   // Create auth directories
   const authDir = join(srcDir, 'auth');
+  const apiRoutesDir = join(srcDir, 'api/routes');
   const middlewareDir = join(srcDir, 'middleware');
   const utilsDir = join(srcDir, 'utils');
   
   mkdirSync(authDir, { recursive: true });
+  mkdirSync(apiRoutesDir, { recursive: true });
   mkdirSync(middlewareDir, { recursive: true });
   mkdirSync(utilsDir, { recursive: true });
 
@@ -49,7 +63,7 @@ export async function addAuthModule(projectDir: string, config: ProjectConfig) {
   
   copyTemplateFile(
     join(AUTH_TEMPLATE_DIR, config.framework, 'auth.routes.ts'),
-    join(authDir, 'auth.routes.ts')
+    join(apiRoutesDir, 'auth.routes.ts')
   );
 
   // Update package.json with new dependencies

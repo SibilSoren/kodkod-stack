@@ -35,7 +35,9 @@ cli
   .command('[root]', 'Initialize a new backend project')
   .option('--framework <framework>', 'Select framework (express, hono, fastify)')
   .option('--database <database>', 'Select database (postgresql, mongodb, mysql)')
-  .option('--orm <orm>', 'Select ORM (prisma, drizzle)')
+  .option('--orm <orm>', 'Select ORM (prisma, drizzle, mongoose)')
+  .option('--runtime <runtime>', 'Select runtime (node, bun)')
+  .option('--package-manager <pm>', 'Select package manager (npm, pnpm, yarn, bun)')
   .action(async (root, options) => {
     console.log(chalk.blue(banner));
     intro(`${chalk.bgBlue.white(' antstack-js ')} ${chalk.dim(`v${version}`)}`);
@@ -116,6 +118,47 @@ cli
       }
     }
 
+    let runtime = options.runtime;
+    if (!runtime) {
+      runtime = (await select({
+        message: 'Select a runtime',
+        options: [
+          { value: 'node', label: 'Node.js', hint: 'Standard' },
+          { value: 'bun', label: 'Bun', hint: 'Fast, all-in-one' },
+        ],
+      })) as string;
+
+      if (isCancel(runtime)) {
+        cancel('Operation cancelled.');
+        process.exit(0);
+      }
+    }
+
+    let packageManager = options.packageManager;
+    if (!packageManager) {
+      const pmOptions = runtime === 'bun' 
+        ? [
+            { value: 'bun', label: 'Bun', hint: 'Default for Bun' },
+            { value: 'npm', label: 'npm', hint: 'Standard' },
+            { value: 'pnpm', label: 'pnpm', hint: 'Fast, space efficient' },
+          ]
+        : [
+            { value: 'npm', label: 'npm', hint: 'Standard' },
+            { value: 'pnpm', label: 'pnpm', hint: 'Fast, space efficient' },
+            { value: 'yarn', label: 'Yarn', hint: 'Classic' },
+          ];
+
+      packageManager = (await select({
+        message: 'Select a package manager',
+        options: pmOptions,
+      })) as string;
+
+      if (isCancel(packageManager)) {
+        cancel('Operation cancelled.');
+        process.exit(0);
+      }
+    }
+
     const s = spinner();
     s.start('Scaffolding your project...');
 
@@ -127,13 +170,23 @@ cli
         framework,
         database,
         orm,
+        runtime,
+        packageManager,
       });
       s.stop(`Project ${projectName} scaffolded successfully!`);
       
+      const installCmd = packageManager === 'npm' ? 'npm install' : `${packageManager} install`;
+      const devCmd = packageManager === 'bun' ? 'bun dev' : `${packageManager} run dev`;
+
       outro(
-        chalk.green(
-          `Done! Your new backend is ready at ${chalk.cyan(targetDir)}`
-        )
+        chalk.green(`
+Done! Your new backend is ready at ${chalk.cyan(targetDir)}
+
+${chalk.white('Next steps:')}
+  ${chalk.dim('1.')} cd ${projectName}
+  ${chalk.dim('2.')} ${installCmd}
+  ${chalk.dim('3.')} ${devCmd}
+        `)
       );
     } catch (error) {
       s.stop('Scaffolding failed.');

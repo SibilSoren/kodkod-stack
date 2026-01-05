@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { UserController } from '../../controllers/user.controller.js';
 import { UserService } from '../../services/user.service.js';
 import { UserRepository } from '../../repositories/user.repository.js';
-import { prisma } from '../../config/prisma.js';
+import { db } from '../../config/db.js';
 
 const router = Router();
 
 // Dependency Injection (Manual)
-const userRepository = new UserRepository(prisma);
+const userRepository = new UserRepository(db);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
