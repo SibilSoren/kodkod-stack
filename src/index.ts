@@ -131,6 +131,13 @@ cli
     }
   });
 
+cli
+  .command('add <module>', 'Add a module to your project')
+  .action(async (module) => {
+    const { handleAddCommand } = await import('./commands/add.js');
+    await handleAddCommand(module, process.cwd());
+  });
+
 cli.version(version);
 cli.help();
 

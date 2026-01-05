@@ -1,0 +1,184 @@
+---
+title: Authentication Module
+description: Add JWT-based authentication to your antstack-js project.
+---
+
+# Authentication Module
+
+Add secure JWT-based authentication to your project with a single command.
+
+## Installation
+
+Navigate to your antstack-js project and run:
+
+```bash
+npx antstack-js add auth
+```
+
+This will:
+1. Add auth controller, service, and middleware
+2. Update your `package.json` with required dependencies
+3. Add `JWT_SECRET` to your `.env.example`
+4. Update your Prisma schema (if using Prisma)
+
+## Setup
+
+After running the command:
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment
+
+Add the following to your `.env` file:
+
+```bash
+JWT_SECRET=your-super-secret-key-change-this-in-production
+JWT_EXPIRES_IN=7d
+```
+
+### 3. Run Migrations (Prisma)
+
+If using Prisma, run migrations to add the `password` field:
+
+```bash
+npx prisma migrate dev --name add-auth
+```
+
+### 4. Register Auth Routes
+
+Import and register the auth routes in your main application file:
+
+**Express:**
+
+```typescript
+import authRoutes from './auth/auth.routes.js';
+
+app.use('/auth', authRoutes);
+```
+
+**Hono:**
+
+```typescript
+import auth from './auth/auth.routes.js';
+
+app.route('/auth', auth);
+```
+
+**Fastify:**
+
+```typescript
+import authRoutes from './auth/auth.routes.js';
+
+fastify.register(authRoutes);
+```
+
+## API Endpoints
+
+### Register a New User
+
+```bash
+POST /auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "name": "John Doe"
+}
+```
+
+**Response:**
+
+```json
+{
+  "user": {
+    "id": "clx...",
+    "email": "user@example.com",
+    "name": "John Doe"
+  },
+  "token": "eyJhbG..."
+}
+```
+
+### Login
+
+```bash
+POST /auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+
+**Response:**
+
+```json
+{
+  "user": {
+    "id": "clx...",
+    "email": "user@example.com",
+    "name": "John Doe"
+  },
+  "token": "eyJhbG..."
+}
+```
+
+### Get Current User (Protected)
+
+```bash
+GET /auth/me
+Authorization: Bearer <token>
+```
+
+**Response:**
+
+```json
+{
+  "id": "clx...",
+  "email": "user@example.com",
+  "name": "John Doe"
+}
+```
+
+## Files Added
+
+The auth module adds the following files to your project:
+
+| File | Description |
+|------|-------------|
+| `src/auth/auth.service.ts` | Core auth logic (register, login, tokens) |
+| `src/auth/auth.controller.ts` | HTTP request handlers |
+| `src/auth/auth.routes.ts` | Route definitions |
+| `src/middleware/auth.middleware.ts` | JWT verification middleware |
+| `src/utils/password.utils.ts` | Password hashing utilities |
+
+## Protecting Routes
+
+Use the `authGuard` middleware to protect your routes:
+
+**Express:**
+
+```typescript
+import { authGuard, AuthenticatedRequest } from './middleware/auth.middleware.js';
+
+app.get('/protected', authGuard, (req: AuthenticatedRequest, res) => {
+  const userId = req.user?.userId;
+  res.json({ message: `Hello, user ${userId}` });
+});
+```
+
+## Security Considerations
+
+<Callout type="warn">
+  **Important:** Always use a strong, unique `JWT_SECRET` in production. Never commit secrets to version control.
+</Callout>
+
+- Passwords are hashed using bcrypt with 10 salt rounds
+- JWTs expire after 7 days by default (configurable via `JWT_EXPIRES_IN`)
+- The `/auth/me` endpoint is protected and requires a valid JWT

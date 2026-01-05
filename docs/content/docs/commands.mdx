@@ -66,10 +66,36 @@ npx antstack-js@latest hono-app --framework hono --database postgresql --orm dri
 npx antstack-js --version
 ```
 
+## `antstack-js add <module>`
+
+Add modules to an existing antstack-js project.
+
+### Available Modules
+
+| Module | Description |
+|--------|-------------|
+| `auth` | JWT-based authentication with register, login, and protected routes |
+
+### Example
+
+```bash
+cd my-api
+npx antstack-js add auth
+```
+
+This will:
+- Add auth controller, service, and middleware files
+- Update `package.json` with `bcrypt` and `jsonwebtoken`
+- Add `JWT_SECRET` to `.env.example`
+- Update Prisma schema with password field (if applicable)
+
+<Callout type="info">
+  See the [Authentication Module](/docs/auth) guide for detailed setup instructions.
+</Callout>
+
 ## Coming Soon
 
 <Callout type="info">
   The following commands are planned for future releases:
-  - `antstack add <module>` - Add modules like authentication, Stripe, etc.
   - `antstack generate route <name>` - Generate new route boilerplate.
 </Callout>
