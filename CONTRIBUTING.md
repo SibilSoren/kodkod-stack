@@ -147,23 +147,31 @@ docs: update README with new commands
 
 ---
 
+## Branching & Release Workflow
+
+We use a structured branching model to ensure stable releases:
+
+- **`develop`**: The primary integration branch. All feature branches and bug fixes should be merged here. **No automatic releases** are triggered from this branch.
+- **`next`**: Used for public pre-releases. Merging `develop` into `next` triggers an automatic **pre-release** (e.g., `v1.1.0-next.1`) published to NPM under the `@next` tag.
+- **`main`**: The stable production branch. Merging `next` into `main` triggers a full **production release** (e.g., `v1.1.0`) published to NPM under the `@latest` tag.
+
 ## Pull Request Process
 
-1. **Create a branch** from `main`:
+1. **Create a branch** from `develop`:
    ```bash
    git checkout -b feat/my-feature
    ```
 
-2. **Make your changes** and commit following the guidelines
+2. **Make your changes** and commit following the [Commit Guidelines](#commit-guidelines).
 
-3. **Test your changes**:
+3. **Test your changes** locally:
    ```bash
    npm run build
    npm link
    antstack test-project
    ```
 
-4. **Push and create a PR**:
+4. **Push and create a PR** targeting the `develop` branch:
    ```bash
    git push origin feat/my-feature
    ```
