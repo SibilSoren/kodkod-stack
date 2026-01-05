@@ -7,7 +7,7 @@ const inter = Inter({
   subsets: ['latin'],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://antstack-js.dev';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://antstack-js.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

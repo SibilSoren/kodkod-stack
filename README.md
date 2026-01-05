@@ -149,13 +149,13 @@ my-api/
 
 ## 🌐 Web Builder
 
-Use our [Visual Builder](https://antstack-js.dev/builder) to configure your stack and generate the CLI command!
+Use our [Visual Builder](https://antstack-js.vercel.app/builder) to configure your stack and generate the CLI command!
 
 ---
 
 ## 📚 Documentation
 
-Visit [antstack-js.dev/docs](https://antstack-js.dev/docs) for full documentation.
+Visit [antstack-js.vercel.app/docs](https://antstack-js.vercel.app/docs) for full documentation.
 
 ---
 
