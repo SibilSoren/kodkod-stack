@@ -93,9 +93,43 @@ This will:
   See the [Authentication Module](/docs/auth) guide for detailed setup instructions.
 </Callout>
 
-## Coming Soon
+## `antstack-js generate route <name>`
 
-<Callout type="info">
-  The following commands are planned for future releases:
-  - `antstack generate route <name>` - Generate new route boilerplate.
-</Callout>
+Generate a complete CRUD route with controller, service, repository, and routes.
+
+**Alias:** `antstack-js g route <name>`
+
+### Usage
+
+```bash
+cd my-api
+npx antstack-js generate route product
+```
+
+### Generated Files
+
+| File | Description |
+|------|-------------|
+| `src/controllers/<name>.controller.ts` | HTTP request handlers |
+| `src/services/<name>.service.ts` | Business logic layer |
+| `src/repositories/<name>.repository.ts` | Data access layer |
+| `src/routes/<name>.routes.ts` | Route definitions with DI |
+
+### Example
+
+```bash
+npx antstack-js g route order
+```
+
+This creates:
+- `src/controllers/order.controller.ts`
+- `src/services/order.service.ts`
+- `src/repositories/order.repository.ts`
+- `src/routes/order.routes.ts`
+
+### Next Steps After Generation
+
+1. Add the model to your Prisma/Drizzle schema
+2. Run migrations
+3. Implement repository methods
+4. Register routes in your main application

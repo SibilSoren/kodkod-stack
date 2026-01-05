@@ -138,6 +138,14 @@ cli
     await handleAddCommand(module, process.cwd());
   });
 
+cli
+  .command('generate <type> <name>', 'Generate boilerplate (e.g., generate route products)')
+  .alias('g')
+  .action(async (type, name) => {
+    const { handleGenerateCommand } = await import('./commands/generate.js');
+    await handleGenerateCommand(type, name, process.cwd());
+  });
+
 cli.version(version);
 cli.help();
 
