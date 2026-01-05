@@ -1,6 +1,6 @@
 {
   "name": "antstack-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A production-ready backend boilerplate generator inspired by ShadCN.",
   "type": "module",
   "main": "./dist/index.js",

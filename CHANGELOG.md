@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SibilSoren/antstack-js/compare/v1.0.0...v1.0.1) (2026-01-05)
+
+
+### Bug Fixes
+
+* standardize project structure and improve template pathing ([d8ed8c7](https://github.com/SibilSoren/antstack-js/commit/d8ed8c792c782c243c2c962f59c8e8ad2dc4adce))
+
 # 1.0.0 (2026-01-05)
 
 
