@@ -1,0 +1,105 @@
+---
+title: Project Architecture
+description: Understanding the generated project structure and patterns.
+---
+
+# Project Architecture
+
+antstack-js generates a clean, layered architecture based on the **Service-Controller-Repository** pattern. This ensures separation of concerns and makes your codebase easy to test and scale.
+
+## Directory Structure
+
+```
+my-api/
+├── src/
+│   ├── controllers/      # HTTP request handlers
+│   ├── services/         # Business logic
+│   ├── repositories/     # Data access layer
+│   ├── routes/           # Route definitions
+│   ├── middleware/       # Custom middleware
+│   ├── config/           # Configuration files
+│   ├── db/               # Database client & migrations
+│   └── index.ts          # Application entry point
+├── prisma/ or drizzle/   # ORM configuration
+├── .env.example          # Environment template
+├── package.json
+└── tsconfig.json
+```
+
+## Layers Explained
+
+### Controllers
+
+Controllers handle incoming HTTP requests and delegate business logic to services. They are responsible for:
+
+- Parsing request parameters
+- Validating input
+- Returning appropriate HTTP responses
+
+```typescript
+// src/controllers/user.controller.ts
+export class UserController {
+  constructor(private userService: UserService) {}
+
+  async getUser(req: Request, res: Response) {
+    const user = await this.userService.findById(req.params.id);
+    res.json(user);
+  }
+}
+```
+
+### Services
+
+Services contain the business logic of your application. They orchestrate operations across multiple repositories and handle complex workflows.
+
+```typescript
+// src/services/user.service.ts
+export class UserService {
+  constructor(private userRepository: UserRepository) {}
+
+  async findById(id: string) {
+    return this.userRepository.findById(id);
+  }
+}
+```
+
+### Repositories
+
+Repositories abstract the data access layer. They interact directly with your ORM (Prisma or Drizzle) and expose clean methods for data operations.
+
+```typescript
+// src/repositories/user.repository.ts
+export class UserRepository {
+  async findById(id: string) {
+    return db.user.findUnique({ where: { id } });
+  }
+}
+```
+
+## Database Client
+
+The generated project exports a unified `db` client from `src/db/index.ts`, regardless of which ORM you choose:
+
+```typescript
+import { db } from './db';
+
+// Works with both Prisma and Drizzle
+const users = await db.user.findMany();
+```
+
+## Environment Variables
+
+Key environment variables used by the generated project:
+
+| Variable       | Description                        |
+|----------------|------------------------------------|
+| `DATABASE_URL` | Database connection string         |
+| `PORT`         | Server port (default: 3000)        |
+| `NODE_ENV`     | `development`, `production`, etc.  |
+
+## Next Steps
+
+<Cards>
+  <Card title="Learn about Frameworks" href="/docs/frameworks" />
+  <Card title="Learn about ORMs" href="/docs/orms" />
+</Cards>

@@ -1,0 +1,75 @@
+---
+title: CLI Commands
+description: Complete reference for all antstack-js CLI commands and options.
+---
+
+# CLI Commands
+
+antstack-js provides a simple but powerful CLI for scaffolding and managing your backend projects.
+
+## `antstack-js [project-name]`
+
+The main command to scaffold a new backend project.
+
+### Interactive Mode
+
+Running the command without flags will launch an interactive wizard:
+
+```bash
+npx antstack-js@latest my-api
+```
+
+You'll be guided through selecting:
+
+- **Framework**: Express, Hono, or Fastify
+- **Database**: PostgreSQL, MongoDB, or MySQL
+- **ORM**: Prisma or Drizzle
+
+### Non-Interactive Mode (Flags)
+
+For CI/CD pipelines or automation, you can pass all options via flags:
+
+```bash
+npx antstack-js@latest my-api \
+  --framework hono \
+  --database postgresql \
+  --orm drizzle
+```
+
+### Available Flags
+
+| Flag               | Description                                  | Values                           |
+|--------------------|----------------------------------------------|----------------------------------|
+| `--framework`      | Select the HTTP framework                    | `express`, `hono`, `fastify`     |
+| `--database`       | Select the database                          | `postgresql`, `mongodb`, `mysql` |
+| `--orm`            | Select the ORM                               | `prisma`, `drizzle`              |
+| `-v`, `--version`  | Display the CLI version                      | -                                |
+| `-h`, `--help`     | Display help information                     | -                                |
+
+## Examples
+
+### Scaffold with Express + Prisma + PostgreSQL
+
+```bash
+npx antstack-js@latest express-app --framework express --database postgresql --orm prisma
+```
+
+### Scaffold with Hono + Drizzle + PostgreSQL
+
+```bash
+npx antstack-js@latest hono-app --framework hono --database postgresql --orm drizzle
+```
+
+### Display Version
+
+```bash
+npx antstack-js --version
+```
+
+## Coming Soon
+
+<Callout type="info">
+  The following commands are planned for future releases:
+  - `antstack add <module>` - Add modules like authentication, Stripe, etc.
+  - `antstack generate route <name>` - Generate new route boilerplate.
+</Callout>

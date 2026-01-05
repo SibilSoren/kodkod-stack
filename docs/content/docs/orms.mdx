@@ -1,0 +1,118 @@
+---
+title: ORMs
+description: Learn about Prisma and Drizzle ORM support in antstack-js.
+---
+
+# ORMs
+
+antstack-js supports two modern ORMs: **Prisma** and **Drizzle**. Both are TypeScript-first and provide excellent developer experiences.
+
+## Prisma
+
+[Prisma](https://www.prisma.io/) is a next-generation ORM with auto-generated types, a visual database browser, and an intuitive schema language.
+
+**Best for**:
+- Rapid development with auto-generated types
+- Teams who prefer declarative schema definitions
+- Projects needing Prisma Studio for database visualization
+
+```bash
+npx antstack-js@latest my-app --orm prisma
+```
+
+### Schema Example
+
+```prisma
+// prisma/schema.prisma
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+}
+```
+
+### Usage
+
+```typescript
+import { db } from '../db';
+
+// Create a user
+const user = await db.user.create({
+  data: { email: 'hello@example.com', name: 'Alice' }
+});
+
+// Find a user
+const found = await db.user.findUnique({ where: { id: user.id } });
+```
+
+### Commands
+
+| Command                      | Description                          |
+|------------------------------|--------------------------------------|
+| `npx prisma migrate dev`     | Run migrations in development        |
+| `npx prisma generate`        | Generate Prisma client               |
+| `npx prisma studio`          | Open visual database browser         |
+
+---
+
+## Drizzle
+
+[Drizzle](https://orm.drizzle.team/) is a lightweight, SQL-like ORM that gives you full control over your queries while maintaining type safety.
+
+**Best for**:
+- Developers who prefer writing SQL-like syntax
+- Projects requiring fine-grained query control
+- Lightweight deployments
+
+```bash
+npx antstack-js@latest my-app --orm drizzle
+```
+
+### Schema Example
+
+```typescript
+// src/db/schema.ts
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: text('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  name: text('name'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+```
+
+### Usage
+
+```typescript
+import { db } from '../db';
+import { users } from '../db/schema';
+import { eq } from 'drizzle-orm';
+
+// Create a user
+await db.insert(users).values({ id: '1', email: 'hello@example.com' });
+
+// Find a user
+const user = await db.select().from(users).where(eq(users.id, '1'));
+```
+
+### Commands
+
+| Command                  | Description                          |
+|--------------------------|--------------------------------------|
+| `npx drizzle-kit push`   | Push schema changes to database      |
+| `npx drizzle-kit generate` | Generate migration files           |
+| `npx drizzle-kit studio` | Open visual database browser         |
+
+---
+
+## Comparison
+
+| Feature              | Prisma              | Drizzle             |
+|----------------------|---------------------|---------------------|
+| Query Style          | Method chaining     | SQL-like            |
+| Bundle Size          | Larger              | Smaller             |
+| Type Safety          | Excellent           | Excellent           |
+| Learning Curve       | Easier              | Moderate            |
+| Edge Compatibility   | Limited             | Better              |

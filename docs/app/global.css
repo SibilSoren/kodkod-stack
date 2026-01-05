@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/* Terminal-inspired theme - Light mode */
+:root {
+  --fd-primary: 22 163 74; /* green-600 */
+}
+
+/* Terminal-inspired theme - Dark mode */
+.dark {
+  --fd-primary: 74 222 128; /* green-400 */
+}
+
+/* Monospace font for terminal aesthetic */
+body {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Code block container styling */
+pre {
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+/* Inline code styling */
+:not(pre) > code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+/* Prose code blocks */
+.prose pre {
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+}
+
+.prose :not(pre) > code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  background-color: rgb(22 163 74 / 0.1);
+}
+
+.dark .prose :not(pre) > code {
+  background-color: rgb(74 222 128 / 0.1);
+}

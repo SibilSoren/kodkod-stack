@@ -1,0 +1,81 @@
+---
+title: Quick Start
+description: Get up and running with antstack-js in under 5 minutes.
+---
+
+# Quick Start
+
+This guide will help you scaffold your first antstack-js project in under 5 minutes.
+
+## Prerequisites
+
+- **Node.js** 18+ installed
+- **npm**, **pnpm**, or **yarn**
+- A database (PostgreSQL, MongoDB, or MySQL)
+
+## Step 1: Create a New Project
+
+Run the following command in your terminal:
+
+```bash
+npx antstack-js@latest my-api
+```
+
+This will launch an interactive wizard that guides you through the setup:
+
+1. **Project Name**: Enter your project directory name.
+2. **Framework**: Choose between Express, Hono, or Fastify.
+3. **Database**: Select PostgreSQL, MongoDB, or MySQL.
+4. **ORM**: Pick Prisma or Drizzle for your data layer.
+
+## Step 2: Install Dependencies
+
+Navigate to your new project and install dependencies:
+
+```bash
+cd my-api
+npm install
+```
+
+## Step 3: Configure Your Database
+
+Copy the example environment file and update your database connection string:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your database credentials:
+
+```bash
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+```
+
+## Step 4: Run Migrations
+
+For **Prisma**:
+
+```bash
+npx prisma migrate dev
+```
+
+For **Drizzle**:
+
+```bash
+npx drizzle-kit push
+```
+
+## Step 5: Start the Development Server
+
+```bash
+npm run dev
+```
+
+Your API is now running at `http://localhost:3000`! 🎉
+
+## What's Next?
+
+<Cards>
+  <Card title="Explore CLI Commands" href="/docs/commands" />
+  <Card title="Understand the Architecture" href="/docs/architecture" />
+</Cards>
