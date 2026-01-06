@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.5...v1.0.6) (2026-01-06)
+
+
+### Bug Fixes
+
+* **docs:** update CLI commands and reorder pages ([c1f13f2](https://github.com/SibilSoren/kodkod-stack/commit/c1f13f20f0a0984df0d932c255e8cc4c5e8fad1a))
+
 ## [1.0.5](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.4...v1.0.5) (2026-01-06)
 
 
