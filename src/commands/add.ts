@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { intro, outro, select, isCancel, cancel, spinner } from '@clack/prompts';
 import chalk from 'chalk';
 import { addAuthModule } from './modules/auth.js';
+import { addSwaggerModule } from './modules/swagger.js';
 
 interface ProjectConfig {
   framework: 'express' | 'hono' | 'fastify';
@@ -80,9 +81,52 @@ ${chalk.dim('Endpoints added:')}
       }
       break;
 
+    case 'swagger':
+      s.start('Adding Swagger/OpenAPI module...');
+      try {
+        await addSwaggerModule(projectDir, config);
+        s.stop('Swagger documentation added successfully!');
+
+        let integrationSnippet = '';
+        if (config.framework === 'express') {
+          integrationSnippet = `
+${chalk.cyan('Add this to your src/index.ts:')}
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger.config.js';
+// ...
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));`;
+        } else if (config.framework === 'hono') {
+          integrationSnippet = `
+${chalk.cyan('Add this to your src/index.ts:')}
+import { setupSwagger } from './config/swagger.js';
+// ...
+setupSwagger(app);`;
+        } else if (config.framework === 'fastify') {
+          integrationSnippet = `
+${chalk.cyan('Add this to your src/index.ts:')}
+import { setupSwagger } from './config/swagger.js';
+// ...
+await setupSwagger(fastify);`;
+        }
+
+        outro(chalk.green(`
+✓ Swagger module installed!
+
+${chalk.cyan('Next steps:')}
+1. Run ${chalk.yellow('npm install')} to install new dependencies
+2. ${integrationSnippet}
+3. Open ${chalk.yellow('http://localhost:port/docs')} to view your API docs
+`));
+      } catch (error) {
+        s.stop('Failed to add Swagger module.');
+        console.error(chalk.red(error));
+        process.exit(1);
+      }
+      break;
+
     default:
       console.error(chalk.red(`Unknown module: ${module}`));
-      console.log(chalk.yellow('Available modules: auth'));
+      console.log(chalk.yellow('Available modules: auth, swagger'));
       process.exit(1);
   }
 }
