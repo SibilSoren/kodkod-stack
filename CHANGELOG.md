@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.2...v1.0.3) (2026-01-06)
+
+
+### Bug Fixes
+
+* **templates:** fix invalid export syntax in express user.routes.ts ([06c25c7](https://github.com/SibilSoren/kodkod-stack/commit/06c25c7ab7acc7058cb213b61c8979cfc0bddf35))
+
 ## [1.0.2](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.1...v1.0.2) (2026-01-06)
 
 
