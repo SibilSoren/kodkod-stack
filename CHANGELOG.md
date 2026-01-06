@@ -1,3 +1,17 @@
+## [1.0.3](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.2...v1.0.3) (2026-01-06)
+
+
+### Bug Fixes
+
+* **templates:** fix invalid export syntax in express user.routes.ts ([06c25c7](https://github.com/SibilSoren/kodkod-stack/commit/06c25c7ab7acc7058cb213b61c8979cfc0bddf35))
+
+## [1.0.2](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.1...v1.0.2) (2026-01-06)
+
+
+### Bug Fixes
+
+* **docs:** use correct ignoreCommand property in vercel.json ([c52bdb8](https://github.com/SibilSoren/kodkod-stack/commit/c52bdb83505ce8a38f0f57589eee0e7b54ded23a))
+
 ## [1.0.1](https://github.com/SibilSoren/antstack-js/compare/v1.0.0...v1.0.1) (2026-01-05)
 
 
