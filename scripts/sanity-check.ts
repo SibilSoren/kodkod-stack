@@ -34,7 +34,7 @@ async function main() {
   await fs.ensureDir(TEST_DIR);
   
   // Build the project first
-  console.log(chalk.yellow('Building antstack-js...'));
+  console.log(chalk.yellow('Building kodkod-stack...'));
   await execa('npm', ['run', 'build']);
 
   // For now, let's just run one and see

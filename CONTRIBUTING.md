@@ -1,6 +1,6 @@
-# Contributing to antstack-js
+# Contributing to kodkod-stack
 
-First off, thank you for considering contributing to antstack-js! 🎉
+First off, thank you for considering contributing to kodkod-stack! 🎉
 
 ## 📋 Table of Contents
 
@@ -23,7 +23,7 @@ This project adheres to a code of conduct. By participating, you are expected to
 
 ### 🐛 Reporting Bugs
 
-- Check if the bug has already been reported in [Issues](https://github.com/SibilSoren/antstack-js/issues)
+- Check if the bug has already been reported in [Issues](https://github.com/SibilSoren/kodkod-stack/issues)
 - If not, create a new issue with:
   - Clear title and description
   - Steps to reproduce
@@ -56,8 +56,8 @@ This project adheres to a code of conduct. By participating, you are expected to
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/antstack-js.git
-cd antstack-js
+git clone https://github.com/YOUR_USERNAME/kodkod-stack.git
+cd kodkod-stack
 
 # Install dependencies
 npm install
@@ -69,7 +69,7 @@ npm run build
 npm link
 
 # Test locally
-antstack my-test-app
+kodkod-stack my-test-app
 ```
 
 ### Running the Docs
@@ -85,12 +85,12 @@ npm run dev
 ## Project Structure
 
 ```
-antstack-js/
+kodkod-stack/
 ├── src/                    # CLI source code
 │   ├── index.ts            # Entry point
 │   ├── commands/           # Command handlers
-│   │   ├── add.ts          # antstack add
-│   │   ├── generate.ts     # antstack generate
+│   │   ├── add.ts          # kodkod-stack add
+│   │   ├── generate.ts     # kodkod-stack generate
 │   │   └── modules/        # Module handlers
 │   └── utils/              # Utilities
 │       └── scaffold.ts     # Scaffolding logic
@@ -168,7 +168,7 @@ We use a structured branching model to ensure stable releases:
    ```bash
    npm run build
    npm link
-   antstack test-project
+   kodkod-stack test-project
    ```
 
 4. **Push and create a PR** targeting the `develop` branch:

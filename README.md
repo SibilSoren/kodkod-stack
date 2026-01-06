@@ -149,13 +149,13 @@ my-api/
 
 ## 🌐 Web Builder
 
-Use our [Visual Builder](https://kodkod-stack.vercel.app/builder) to configure your stack and generate the CLI command!
+Use our [Visual Builder](https://kodkodstack.vercel.app/builder) to configure your stack and generate the CLI command!
 
 ---
 
 ## 📚 Documentation
 
-Visit [kodkod-stack.vercel.app/docs](https://kodkod-stack.vercel.app/docs) for full documentation.
+Visit [kodkodstack.vercel.app/docs](https://kodkodstack.vercel.app/docs) for full documentation.
 
 ---
 
