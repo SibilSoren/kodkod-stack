@@ -63,7 +63,7 @@ npx kodkod-stack generate route products
 
 ```bash
 # Interactive wizard
-npx kodkod@latest my-api
+npx kodkod-stack@latest my-api
 
 # Or with flags
 npx kodkod-stack@latest my-api --framework express --database postgresql --orm prisma
@@ -75,7 +75,7 @@ npx kodkod-stack@latest my-api --framework express --database postgresql --orm p
 
 ### 1. Create a new project
 ```bash
-npx kodkod@latest my-api
+npx kodkod-stack@latest my-api
 ```
 
 ### 2. Install dependencies

@@ -16,7 +16,7 @@ The main command to scaffold a new backend project.
 Running the command without flags will launch an interactive wizard:
 
 ```bash
-npx kodkod@latest my-api
+npx kodkod-stack@latest my-api
 ```
 
 You'll be guided through selecting:
@@ -30,7 +30,7 @@ You'll be guided through selecting:
 For CI/CD pipelines or automation, you can pass all options via flags:
 
 ```bash
-npx kodkod@latest my-api \
+npx kodkod-stack@latest my-api \
   --framework hono \
   --database postgresql \
   --orm drizzle
@@ -51,19 +51,19 @@ npx kodkod@latest my-api \
 ### Scaffold with Express + Prisma + PostgreSQL
 
 ```bash
-npx kodkod@latest express-app --framework express --database postgresql --orm prisma
+npx kodkod-stack@latest express-app --framework express --database postgresql --orm prisma
 ```
 
 ### Scaffold with Hono + Drizzle + PostgreSQL
 
 ```bash
-npx kodkod@latest hono-app --framework hono --database postgresql --orm drizzle
+npx kodkod-stack@latest hono-app --framework hono --database postgresql --orm drizzle
 ```
 
 ### Display Version
 
 ```bash
-npx kodkod --version
+npx kodkod-stack --version
 ```
 
 ## `kodkod add <module>`
@@ -80,7 +80,7 @@ Add modules to an existing kodkod project.
 
 ```bash
 cd my-api
-npx kodkod add auth
+npx kodkod-stack add auth
 ```
 
 This will:
@@ -103,7 +103,7 @@ Generate a complete CRUD route with controller, service, repository, and routes.
 
 ```bash
 cd my-api
-npx kodkod generate route product
+npx kodkod-stack generate route product
 ```
 
 ### Generated Files
@@ -118,7 +118,7 @@ npx kodkod generate route product
 ### Example
 
 ```bash
-npx kodkod g route order
+npx kodkod-stack g route order
 ```
 
 This creates:

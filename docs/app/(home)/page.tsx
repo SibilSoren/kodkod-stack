@@ -48,7 +48,7 @@ export default function HomePage() {
               </div>
 
               <div className="pt-4 text-amber-600/60 dark:text-amber-500/60">
-                <span className="text-amber-600 dark:text-amber-400">$</span> npx kodkod@latest my-app
+                <span className="text-amber-600 dark:text-amber-400">$</span> npx kodkod-stack@latest my-app
               </div>
               
               <div className="text-orange-600 dark:text-orange-400/80 animate-pulse">
@@ -132,7 +132,7 @@ export default function HomePage() {
           
           <div className="bg-white dark:bg-[#1a1a1a] border border-amber-500/30 dark:border-amber-500/20 rounded p-6">
             <code className="text-lg text-amber-700 dark:text-amber-300">
-              npx kodkod@latest &lt;project-name&gt; \<br />
+              npx kodkod-stack@latest &lt;project-name&gt; \<br />
               <span className="text-amber-600/60 dark:text-amber-500/60 ml-4">--framework</span> <span className="text-orange-600 dark:text-orange-400">express|hono</span> \<br />
               <span className="text-amber-600/60 dark:text-amber-500/60 ml-4">--database</span> <span className="text-orange-600 dark:text-orange-400">postgresql|mongodb</span> \<br />
               <span className="text-amber-600/60 dark:text-amber-500/60 ml-4">--orm</span> <span className="text-orange-600 dark:text-orange-400">prisma|drizzle</span>
@@ -140,7 +140,7 @@ export default function HomePage() {
           </div>
           
           <p className="text-amber-600/50 dark:text-amber-500/50 text-sm mt-4 text-center">
-            Or use the interactive wizard – just run <code className="text-amber-600 dark:text-amber-400">npx kodkod@latest</code>
+            Or use the interactive wizard – just run <code className="text-amber-600 dark:text-amber-400">npx kodkod-stack@latest</code>
           </p>
         </div>
       </section>

@@ -20,7 +20,7 @@ kodkod supports three modern ORMs: **Prisma**, **Drizzle**, and **Mongoose**. Th
 - Projects needing Prisma Studio for database visualization
 
 ```bash
-npx kodkod@latest my-app --orm prisma
+npx kodkod-stack@latest my-app --orm prisma
 ```
 
 ### Schema Example
@@ -69,7 +69,7 @@ const found = await db.user.findUnique({ where: { id: user.id } });
 - Lightweight deployments
 
 ```bash
-npx kodkod@latest my-app --orm drizzle
+npx kodkod-stack@latest my-app --orm drizzle
 ```
 
 ### Schema Example
@@ -120,7 +120,7 @@ const user = await db.select().from(users).where(eq(users.id, '1'));
 - Projects needing schema validation and middleware
 
 ```bash
-npx kodkod@latest my-app --database mongodb --orm mongoose
+npx kodkod-stack@latest my-app --database mongodb --orm mongoose
 ```
 
 ### Schema Example

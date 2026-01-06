@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "index",
+    "quickstart",
+    "commands",
+    "frameworks",
+    "orms",
+    "architecture",
+    "auth"
+  ]
+}
