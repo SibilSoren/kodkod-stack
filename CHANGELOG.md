@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.4...v1.0.5) (2026-01-06)
+
+
+### Bug Fixes
+
+* **templates:** fix mongoose db export for consistency with other ORMs ([c20fa1e](https://github.com/SibilSoren/kodkod-stack/commit/c20fa1ee24f56de7e7966e4785dd7ddd462da604))
+
 ## [1.0.4](https://github.com/SibilSoren/kodkod-stack/compare/v1.0.3...v1.0.4) (2026-01-06)
 
 

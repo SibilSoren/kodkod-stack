@@ -1,6 +1,6 @@
 {
   "name": "kodkod-stack",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Small CLI. Big backends. Production-ready backend boilerplate generator.",
   "type": "module",
   "main": "./dist/index.js",
