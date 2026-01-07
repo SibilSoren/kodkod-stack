@@ -12,8 +12,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kodkodstack.vercel.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'kodkod | Small CLI. Big backends.',
-    template: '%s | kodkod',
+    default: 'Kodkod Stack | Small CLI. Big backends.',
+    template: '%s | Kodkod Stack',
   },
   description: 'Production-ready backend boilerplate generator. Choose Express, Hono, or Fastify with Prisma, Drizzle, or Mongoose. Own every line of code.',
   keywords: [
@@ -36,21 +36,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'kodkod',
-    title: 'kodkod | Small CLI. Big backends.',
+    siteName: 'Kodkod Stack',
+    title: 'Kodkod Stack | Small CLI. Big backends.',
     description: 'Production-ready backend boilerplate generator. Choose your framework, ORM, and database. Own every line of code.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'kodkod - Small CLI. Big backends.',
+        alt: 'Kodkod Stack - Small CLI. Big backends.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'kodkod | Small CLI. Big backends.',
+    title: 'Kodkod Stack | Small CLI. Big backends.',
     description: 'Production-ready backend boilerplate generator. Choose your framework, ORM, and database.',
     images: ['/og-image.png'],
   },
