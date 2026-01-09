@@ -33,6 +33,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Run Global Vitest (Unit Tests)
+        run: npm test
+        continue-on-error: true
+
+      - name: Run Comprehensive CLI Integration Tests (Deep Subset)
+        run: npm run test:deep
+        env:
+          DEBUG: "true"
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
