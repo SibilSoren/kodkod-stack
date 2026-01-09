@@ -4,6 +4,7 @@ import { intro, outro, select, isCancel, cancel, spinner } from '@clack/prompts'
 import chalk from 'chalk';
 import { addAuthModule } from './modules/auth.js';
 import { addSwaggerModule } from './modules/swagger.js';
+import { addTestModule } from './modules/test.js';
 
 interface ProjectConfig {
   framework: 'express' | 'hono' | 'fastify';
@@ -124,9 +125,27 @@ ${chalk.cyan('Next steps:')}
       }
       break;
 
+    case 'test':
+      try {
+        await addTestModule(projectDir, config);
+        
+        outro(chalk.green(`
+✓ Testing module installed!
+
+${chalk.cyan('Next steps:')}
+1. Run ${chalk.yellow('npm install')}
+2. Generate tests: ${chalk.yellow('npx kodkod generate test <route-name>')}
+3. Run tests: ${chalk.yellow('npm run test')}
+`));
+      } catch (error) {
+        console.error(chalk.red(error));
+        process.exit(1);
+      }
+      break;
+
     default:
       console.error(chalk.red(`Unknown module: ${module}`));
-      console.log(chalk.yellow('Available modules: auth, swagger'));
+      console.log(chalk.yellow('Available modules: auth, swagger, test'));
       process.exit(1);
   }
 }

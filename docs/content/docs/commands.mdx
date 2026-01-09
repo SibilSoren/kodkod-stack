@@ -76,6 +76,7 @@ Add modules to an existing kodkod project.
 |--------|-------------|
 | `auth` | JWT-based authentication with register, login, and protected routes |
 | `swagger` | Swagger/OpenAPI documentation for your API endpoints |
+| `test` | Testing infrastructure with Vitest or Jest |
 
 ### Example
 
@@ -134,3 +135,24 @@ This creates:
 2. Run migrations
 3. Implement repository methods
 4. Register routes in your main application
+
+## `kodkod generate test <name>`
+
+Generate integration tests for an existing route.
+
+**Alias:** `kodkod g test <name>`
+
+### Usage
+
+```bash
+cd my-api
+npx kodkod-stack generate test product
+```
+
+This creates `tests/integration/product.test.ts` with tests for all CRUD endpoints.
+
+<Callout type="info">
+  You must run `kodkod add test` first to set up the testing infrastructure.
+</Callout>
+
+See the [Testing Guide](/docs/test) for more details.

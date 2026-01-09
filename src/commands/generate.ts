@@ -1,7 +1,22 @@
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { intro, outro, text, isCancel, cancel, spinner } from '@clack/prompts';
 import chalk from 'chalk';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const getTestTemplateDir = () => {
+  const paths = [
+    join(__dirname, '../templates/modules/test'),       // dist/
+    join(__dirname, '../../templates/modules/test'),    // src/commands/
+  ];
+  for (const p of paths) {
+    if (existsSync(p)) return p;
+  }
+  return paths[0]; // default
+};
 
 interface ProjectConfig {
   framework: 'express' | 'hono' | 'fastify';
@@ -39,9 +54,9 @@ function toKebabCase(str: string): string {
 export async function handleGenerateCommand(type: string, name: string, projectDir: string) {
   intro(`${chalk.bgHex('#B45309').white(' kodkod generate ')} ${chalk.cyan(type)} ${chalk.yellow(name)}`);
 
-  if (type !== 'route') {
+  if (type !== 'route' && type !== 'test') {
     console.error(chalk.red(`Unknown generator type: ${type}`));
-    console.log(chalk.yellow('Available generators: route'));
+    console.log(chalk.yellow('Available generators: route, test'));
     process.exit(1);
   }
 
@@ -56,6 +71,31 @@ export async function handleGenerateCommand(type: string, name: string, projectD
   console.log(chalk.dim(`Detected: ${config.framework} + ${config.orm}`));
 
   const s = spinner();
+
+  if (type === 'test') {
+    s.start(`Generating ${name} test...`);
+    try {
+      await generateTest(projectDir, name, config);
+      s.stop(`Generated ${name} test successfully!`);
+      
+      const kebabName = toKebabCase(name);
+      outro(chalk.green(`
+✓ Test generated!
+
+${chalk.cyan('File created:')}
+  tests/integration/${kebabName}.test.ts
+
+${chalk.dim('Run tests:')}
+  npm run test
+`));
+    } catch (error) {
+      s.stop('Test generation failed.');
+      console.error(chalk.red(error));
+      process.exit(1);
+    }
+    return;
+  }
+
   s.start(`Generating ${name} route...`);
 
   try {
@@ -405,4 +445,38 @@ export class ${Name}Repository {
 `;
 
   writeFileSync(join(srcDir, 'repositories', `${kebabName}.repository.ts`), content);
+}
+
+async function generateTest(projectDir: string, name: string, config: ProjectConfig) {
+  // Read package.json to get test runner choice
+  const pkgPath = join(projectDir, 'package.json');
+  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+  const testRunner = pkg.kodkod?.testRunner || 'vitest';
+  
+  const testsDir = join(projectDir, 'tests', 'integration');
+  mkdirSync(testsDir, { recursive: true });
+  
+  const Name = capitalize(name);
+  const kebabName = toKebabCase(name);
+  
+  const templatesDir = getTestTemplateDir();
+  const templatePath = join(
+    templatesDir,
+    config.framework,
+    testRunner,
+    'integration.template.ts'
+  );
+  
+  if (!existsSync(templatePath)) {
+    throw new Error(`Template not found: ${templatePath}`);
+  }
+  
+  let template = readFileSync(templatePath, 'utf-8');
+  
+  template = template
+    .replace(/\{\{Name\}\}/g, Name)
+    .replace(/\{\{name\}\}/g, name)
+    .replace(/\{\{kebabName\}\}/g, kebabName);
+  
+  writeFileSync(join(testsDir, `${kebabName}.test.ts`), template);
 }

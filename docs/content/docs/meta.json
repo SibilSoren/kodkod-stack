@@ -7,6 +7,7 @@
     "orms",
     "architecture",
     "auth",
-    "swagger"
+    "swagger",
+    "test"
   ]
 }

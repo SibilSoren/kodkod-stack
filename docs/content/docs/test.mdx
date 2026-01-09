@@ -1,0 +1,111 @@
+---
+title: Testing
+description: Add automated testing to your Kodkod project with Vitest or Jest.
+---
+
+# Testing
+
+Kodkod makes it easy to add a testing framework to your project and generate integration tests for your routes.
+
+## Setting Up Tests
+
+Run the following command from your project root:
+
+```bash
+npx kodkod add test
+```
+
+You'll be prompted to choose your testing framework:
+
+- **Vitest** – Fast, modern, ESM-native (recommended)
+- **Jest** – Classic, widely adopted
+
+<Callout title="What gets created">
+  - `vitest.config.ts` or `jest.config.js` – Test configuration
+  - `tests/setup.ts` – Test setup file with database mocking
+  - `tests/integration/` – Directory for integration tests
+  - Updated `package.json` with test dependencies and scripts
+</Callout>
+
+## Generating Tests
+
+Once testing is set up, you can generate tests for any route:
+
+```bash
+npx kodkod generate test products
+```
+
+This creates `tests/integration/products.test.ts` with:
+- GET all items
+- GET by ID (including 404 case)
+- POST create
+- PUT update
+- DELETE
+
+### Example Generated Test
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import request from 'supertest';
+import { app } from '../setup.js';
+
+describe('Products API', () => {
+  describe('GET /products', () => {
+    it('should return a list', async () => {
+      const res = await request(app).get('/products');
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe('POST /products', () => {
+    it('should handle creation request', async () => {
+      const res = await request(app)
+        .post('/products')
+        .send({
+          // TODO: Add valid request body
+        });
+      expect([201, 400, 500]).toContain(res.status);
+    });
+  });
+});
+```
+
+## Running Tests
+
+After generating tests, run them with:
+
+```bash
+# Run all tests
+npm run test
+
+# Watch mode
+npm run test:watch
+
+# With coverage
+npm run test:coverage
+```
+
+## Vitest vs Jest
+
+| Feature | Vitest | Jest |
+|---------|--------|------|
+| Speed | ⚡ Very fast | 🐢 Slower |
+| ESM Support | ✅ Native | ⚠️ Requires config |
+| Configuration | Minimal | More setup needed |
+| Watch mode | Instant HMR | Standard |
+| Ecosystem | Growing | Mature |
+
+**Recommendation**: Use Vitest for new projects. Use Jest if your team is already familiar with it or you need specific Jest plugins.
+
+## Customizing Tests
+
+Generated tests are starting points. You should:
+
+1. **Add real test data** – Replace `// TODO` comments with actual request bodies
+2. **Add assertions** – Verify response structure matches your schema
+3. **Add edge cases** – Test validation errors, auth requirements, etc.
+
+<Cards>
+  <Card title="CLI Commands" href="/docs/commands" />
+  <Card title="Authentication" href="/docs/auth" />
+</Cards>
