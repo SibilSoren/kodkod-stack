@@ -1,6 +1,6 @@
 ---
 title: Testing
-description: Add automated testing to your Kodkod project with Vitest or Jest.
+description: Add automated testing to your Kodkod project with Vitest.
 ---
 
 # Testing
@@ -15,13 +15,14 @@ Run the following command from your project root:
 npx kodkod add test
 ```
 
-You'll be prompted to choose your testing framework:
+Once run, it automatically sets up Vitest and installs all necessary dependencies.
 
-- **Vitest** – Fast, modern, ESM-native (recommended)
-- **Jest** – Classic, widely adopted
+<Callout title="Note">
+  Looking for **Jest**? We are working on specialized ESM support for Jest. It will be added as an option in a future update.
+</Callout>
 
 <Callout title="What gets created">
-  - `vitest.config.ts` or `jest.config.js` – Test configuration
+  - `vitest.config.ts` – Vitest configuration
   - `tests/setup.ts` – Test setup file with database mocking
   - `tests/integration/` – Directory for integration tests
   - Updated `package.json` with test dependencies and scripts
@@ -85,17 +86,8 @@ npm run test:watch
 npm run test:coverage
 ```
 
-## Vitest vs Jest
 
-| Feature | Vitest | Jest |
-|---------|--------|------|
-| Speed | ⚡ Very fast | 🐢 Slower |
-| ESM Support | ✅ Native | ⚠️ Requires config |
-| Configuration | Minimal | More setup needed |
-| Watch mode | Instant HMR | Standard |
-| Ecosystem | Growing | Mature |
 
-**Recommendation**: Use Vitest for new projects. Use Jest if your team is already familiar with it or you need specific Jest plugins.
 
 ## Customizing Tests
 
