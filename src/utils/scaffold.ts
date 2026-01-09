@@ -75,9 +75,9 @@ export async function scaffoldProject(targetDir: string, options: ScaffoldOption
       pkg.dependencies = { ...pkg.dependencies, express: '^4.18.2', cors: '^2.8.5', helmet: '^7.1.0', dotenv: '^16.3.1' };
       pkg.devDependencies = { ...pkg.devDependencies, '@types/express': '^4.17.21', '@types/cors': '^2.8.17' };
     } else if (options.framework === 'hono') {
-      pkg.dependencies = { ...pkg.dependencies, hono: '^3.11.7', '@hono/node-server': '^1.3.1' };
+      pkg.dependencies = { ...pkg.dependencies, hono: '^4.0.0', '@hono/node-server': '^1.3.1', dotenv: '^16.3.1' };
     } else if (options.framework === 'fastify') {
-      pkg.dependencies = { ...pkg.dependencies, fastify: '^4.25.0' };
+      pkg.dependencies = { ...pkg.dependencies, fastify: '^4.25.0', '@fastify/cors': '^8.5.0', '@fastify/helmet': '^11.1.1', dotenv: '^16.3.1' };
       pkg.devDependencies = { ...pkg.devDependencies, '@types/node': '^20.10.0' };
     }
 

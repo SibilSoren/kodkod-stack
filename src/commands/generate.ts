@@ -362,11 +362,11 @@ export default async function ${name}Routes(fastify: FastifyInstance) {
   const ${name}Service = new ${Name}Service(${name}Repository);
   const ${name}Controller = new ${Name}Controller(${name}Service);
 
-  fastify.get('/${kebabName}', ${name}Controller.getAll.bind(${name}Controller));
-  fastify.get('/${kebabName}/:id', ${name}Controller.getById.bind(${name}Controller));
-  fastify.post('/${kebabName}', ${name}Controller.create.bind(${name}Controller));
-  fastify.put('/${kebabName}/:id', ${name}Controller.update.bind(${name}Controller));
-  fastify.delete('/${kebabName}/:id', ${name}Controller.delete.bind(${name}Controller));
+  fastify.get('/', ${name}Controller.getAll.bind(${name}Controller));
+  fastify.get('/:id', ${name}Controller.getById.bind(${name}Controller));
+  fastify.post('/', ${name}Controller.create.bind(${name}Controller));
+  fastify.put('/:id', ${name}Controller.update.bind(${name}Controller));
+  fastify.delete('/:id', ${name}Controller.delete.bind(${name}Controller));
 }
 `;
 
