@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/SibilSoren/kodkod-stack/compare/v1.1.1...v1.2.0) (2026-01-09)
+
+
+### Features
+
+* add comprehensive CLI test suite and fix discovered bugs ([70aa647](https://github.com/SibilSoren/kodkod-stack/commit/70aa64767b4f17af76114baec8a2ea994fbcda5c))
+* add test generator with Vitest and Jest support ([dc94eba](https://github.com/SibilSoren/kodkod-stack/commit/dc94ebaa9a7d1747279a1148c61a8b852be89de0))
+* refine test generator to be Vitest-only ([0e4b881](https://github.com/SibilSoren/kodkod-stack/commit/0e4b881b2e384ccb7eb8dbef129c381f1fdfc107))
+
 ## [1.1.1](https://github.com/SibilSoren/kodkod-stack/compare/v1.1.0...v1.1.1) (2026-01-06)
 
 
